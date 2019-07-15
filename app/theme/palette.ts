@@ -1,0 +1,21 @@
+export const palette = {
+  white: "#ffffff",
+  offWhite: "#FFFAFA",
+  orange: "#FBA928",
+  orangeDarker: "#EB9918",
+  lightGrey: "#939AA4",
+  lighterGrey: "#CDD4DA",
+  lightestGrey: "#F5F5F5",
+  angry: "#dd3333",
+  green: "#0F893C",
+  blue: "#2682B2",
+  // TODO: these color names - partially from http://www.cultureamp.design/styles/colors/
+  button: "#49525D",
+  ink: "#3E4543",
+  paper: "#F2EDDE",
+  coral: "#F04C5D",
+  seedling: "#45AD8F",
+  lapis: "#253C64",
+  stone: "#F9F9F9",
+  black: "#000",
+}

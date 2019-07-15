@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+#
+# Setup Script
+#
+# Runs all the needed commands to set up a developer's system to run this app.
+# Customize this as your app grows.
+
+# Check for macOS
+if [[ ! "$OSTYPE" =~ ^darwin ]]; then
+  echo "This script only works on macOS"
+  exit 1
+fi
+
+if [ $# -eq 0 ]; then
+    echo "New project name required"
+    exit 1
+fi
+
+PROJECT_NAME=$1
+
+echo "New Project Name for iOS and Android is ${PROJECT_NAME}"
+
+
+echo "----------------------------------------------------------"
+echo "Rename iOS and Android project file to ${PROJECT_NAME}"
+echo "----------------------------------------------------------"
+i=0
+while [[ $(find . -name 'RNStarterKit*') ]]; do
+  if [[ "$i" -eq "3" ]]; then
+    break
+  fi
+  TOTAL_FOLDER_AND_FILE=($(find . -name 'RNStarterKit*'))
+  echo "Apply rename to ${#TOTAL_FOLDER_AND_FILE[@]} folders/files with RNStarterKit name"
+  if [[ $(find . -name 'RNStarterKit*' -print0 | xargs -0 rename --subst-all 'RNStarterKit' "${PROJECT_NAME}") ]]; then
+    echo "Success run the folders/files rename"
+  fi
+  ((i++))
+done
+
+i=0
+echo ""
+echo "----------------------------------------------------------"
+echo "Rename iOS and Android string in file to ${PROJECT_NAME}"
+echo "----------------------------------------------------------"
+
+while [[ $(ack --literal --files-with-matches -I 'RNStarterKit' --ignore-dir bin) ]]; do
+  if [[ "$i" -eq "2" ]]; then
+    break
+  fi
+  TOTAL_FILE_WITH_STRING=($(ack --literal --files-with-matches -I 'RNStarterKit' --ignore-dir bin))
+  echo "Apply rename to ${#TOTAL_FILE_WITH_STRING[@]} occurences from RNStarterKit to ${PROJECT_NAME} string within the project"
+  if [[ $(ack --literal --files-with-matches -I 'RNStarterKit' --ignore-dir bin --print0 | LC_CTYPE=C xargs -0 sed -i '' "s/RNStarterKit/${PROJECT_NAME}/g") ]]; then
+    echo "Success run the string replacement"
+  fi
+  ((i++))
+done
+
+SMALLCASE_PROJECT_NAME=$(echo "$PROJECT_NAME" | tr '[:upper:]' '[:lower:]')
+
+while [[ $(ack --literal --files-with-matches -I 'rnstarterkit' --ignore-dir bin) ]]; do
+  if [[ "$i" -eq "2" ]]; then
+    break
+  fi
+  TOTAL_FILE_WITH_STRING=($(ack --literal --files-with-matches -I 'rnstarterkit' --ignore-dir bin))
+  echo "Apply rename to ${#TOTAL_FILE_WITH_STRING[@]} occurences from rnstarterkit to ${PROJECT_NAME} string within the project"
+  if [[ $(ack --literal --files-with-matches -I 'rnstarterkit' --ignore-dir bin --print0 | LC_CTYPE=C xargs -0 sed -i '' "s/rnstarterkit/${SMALLCASE_PROJECT_NAME}/g") ]]; then
+    echo "Success run the string replacement"
+  fi
+  ((i++))
+done
+
+echo ""
+echo "----------------------------------------------------------"
+echo "Project rename complete!"
+echo "----------------------------------------------------------"
+
+echo "To run the app on iOS:"
+echo "react-native run-ios"
