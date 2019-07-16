@@ -6,6 +6,7 @@ import {
 import { HomeScreen } from "app/screens/home-screen";
 import { MoreScreen, MoreScreenDetail } from "app/screens/more-screen";
 import { ListScreen } from "app/screens/list-screen";
+import { SearchScreen } from "app/screens/search-screen";
 import { Icon } from "react-native-elements";
 
 const MoreScreenStack = createStackNavigator({
@@ -19,7 +20,18 @@ export const AppNavigator = createBottomTabNavigator(
       screen: HomeScreen,
       navigationOptions: ({ navigation }) => ({
         title: "Home",
-        tabBarIcon: ({ tintColor }) => <Icon name="home" color={tintColor} />
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="newspaper-o" color={tintColor} type="font-awesome" />
+        )
+      })
+    },
+    Search: {
+      screen: SearchScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: "Search",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="search" color={tintColor} type="font-awesome" />
+        )
       })
     },
     List: {
@@ -27,15 +39,17 @@ export const AppNavigator = createBottomTabNavigator(
       navigationOptions: ({ navigation }) => ({
         title: "List",
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="list-alt" type="font-awesome" color={tintColor} />
+          <Icon name="bookmark" type="font-awesome" color={tintColor} />
         )
       })
     },
-    More: {
+    Settings: {
       screen: MoreScreenStack,
       navigationOptions: ({ navigation }) => ({
-        title: "More",
-        tabBarIcon: ({ tintColor }) => <Icon name="menu" color={tintColor} />
+        title: "Settings",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="cogs" type="font-awesome" color={tintColor} />
+        )
       })
     }
   },

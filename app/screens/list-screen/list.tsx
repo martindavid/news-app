@@ -6,7 +6,7 @@ import { GetUsersResult, User } from "app/services/api";
 import { ListItem } from "react-native-elements";
 
 export interface ListProps {
-  data: GetUsersResult;
+  data: object;
   error: string;
   loading: boolean;
   onRefresh: any;

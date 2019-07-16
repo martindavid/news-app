@@ -25,10 +25,13 @@
 declare var process: any;
 
 export const API: string | undefined =
-  process.env.API || "https://jsonplaceholder.typicode.com";
+  process.env.API || "https://newsapi.org/v2";
 
 export const BUGSNAG_API_KEY =
   process.env.BUGSNAG_API_KEY || "8b875b7ef336bb103d89f500b453efd4";
 
 export const DEMO_GRAPHQL_URL =
   "https://spotify-graphql-server.herokuapp.com/graphql";
+
+export const NEWS_API_KEY =
+  process.env.NEWS_API_KEY || "c367db128ae94365b71d34f954820778";

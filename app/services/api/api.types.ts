@@ -1,17 +1,27 @@
-import { GeneralApiProblem } from "./api-problem"
+import { GeneralApiProblem } from "./api-problem";
 
-// NOTE: this should be defined here only if not using a store
-export interface User {
-  id: number
-  name: string
-  phone: string
-  username: string
-  company: {
-    name: string
-    catchPhrase: string
-    bs: string
-  }
+interface Source {
+  id: any;
+  name: string;
 }
 
-export type GetUsersResult = { kind: "ok"; users: User[] } | GeneralApiProblem
-export type GetUserResult = { kind: "ok"; user: User } | GeneralApiProblem
+export interface News {
+  source: Source;
+  author: string;
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: string;
+  publishedAt: string;
+  content: string;
+}
+
+export interface SearchResult {
+  status: string;
+  totalResults: number;
+  articles: News[];
+}
+
+export type GetNewsResult =
+  | { kind: "ok"; results: SearchResult }
+  | GeneralApiProblem;

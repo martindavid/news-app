@@ -4,8 +4,33 @@ import { Text } from "react-native-elements";
 import { NavigationScreenProps } from "react-navigation";
 import { Screen } from "app/components";
 import * as style from "../style";
-import { UserApi } from "app/services/api/users";
+import { UserApi } from "app/services/api/news";
 import { ListRenderer } from "./list";
+
+const mockData = [
+  {
+    id: 1,
+    name: "Barbara Streisand",
+    phone: "99998888",
+    username: "bstreisand",
+    company: {
+      name: "Company A",
+      catchPhrase: "It's good enough",
+      bs: "Nonononono"
+    }
+  },
+  {
+    id: 2,
+    name: "Anthony Green",
+    phone: "99998888",
+    username: "agreen",
+    company: {
+      name: "Company B",
+      catchPhrase: "It's good enough",
+      bs: "Nonononono"
+    }
+  }
+];
 
 export interface ListScreenProps extends NavigationScreenProps<{}> {}
 
@@ -27,11 +52,7 @@ export class ListScreen extends React.Component<ListScreenProps, {}> {
     this.setState({ data: null, loading: true });
 
     try {
-      const api = new UserApi();
-      api.setup();
-      const data = await api.getUsers();
-
-      this.setState({ data, loading: false });
+      this.setState({ data: mockData, loading: false });
     } catch (error) {
       this.setState({ data: { kind: "server" }, loading: false });
     }

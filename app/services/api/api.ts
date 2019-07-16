@@ -37,7 +37,8 @@ export class Api {
       baseURL: this.config.url,
       timeout: this.config.timeout,
       headers: {
-        Accept: "application/json"
+        Accept: "application/json",
+        "X-Api-Key": this.config.apiKey
       }
     });
   }
